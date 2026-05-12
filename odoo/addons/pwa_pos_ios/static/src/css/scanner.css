@@ -1,0 +1,43 @@
+body {
+    padding-top:    env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left:   env(safe-area-inset-left, 0px);
+    padding-right:  env(safe-area-inset-right, 0px);
+}
+
+.pwa-back-btn {
+    position: fixed;
+    top:  calc(env(safe-area-inset-top, 0px) + 8px);
+    left: calc(env(safe-area-inset-left, 0px) + 8px);
+    z-index: 9999;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+    color: #333;
+    transition: opacity 0.2s ease;
+}
+
+.pwa-back-btn:active {
+    transform: scale(0.92);
+}
+
+.pwa-scanner-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+#pwa-qr-scan-region > div {
+    border: 5px solid #714B67 !important;
+}
