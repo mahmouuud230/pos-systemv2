@@ -104,7 +104,6 @@ install_module() {
 }
 
 install_module "point_of_sale"
-install_module "pwa_pos_ios" || echo "   (pwa_pos_ios not in addons path, skipping)"
 
 echo "-> [4/5] Creating Nginx proxy host for ${FQDN}..."
 TOKEN=$(curl -s -X POST "${NPM_BASE}/api/tokens" \
