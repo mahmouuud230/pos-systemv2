@@ -1,0 +1,130 @@
+/* addons/pos_barcode_product_form/static/src/css/barcode_scanner_widget.css */
+
+.o_barcode_scan_btn {
+    flex-shrink: 0;
+    padding: 3px 7px;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.o_barcode_overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: barcodeOverlayIn 0.15s ease;
+}
+
+@keyframes barcodeOverlayIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.o_barcode_modal {
+    background: #1c1c1e;
+    border-radius: 14px;
+    padding: 16px;
+    width: min(95vw, 500px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.o_barcode_modal_header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.o_barcode_modal_title {
+    color: #f2f2f7;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.o_barcode_video_wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.o_barcode_video {
+    width: 100%;
+    border-radius: 10px;
+    background: #000;
+    max-height: 58vh;
+    object-fit: cover;
+    display: block;
+}
+
+.o_barcode_reticle {
+    position: absolute;
+    width: 220px;
+    height: 100px;
+    pointer-events: none;
+}
+
+.o_barcode_reticle_top,
+.o_barcode_reticle_bottom {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+}
+
+.o_barcode_reticle_top    { top: 0; }
+.o_barcode_reticle_bottom { bottom: 0; }
+
+.o_barcode_reticle_top::before,
+.o_barcode_reticle_top::after,
+.o_barcode_reticle_bottom::before,
+.o_barcode_reticle_bottom::after {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-color: #ff3b30;
+    border-style: solid;
+}
+
+.o_barcode_reticle_top::before {
+    top: 0; left: 0;
+    border-width: 3px 0 0 3px;
+    border-radius: 3px 0 0 0;
+}
+
+.o_barcode_reticle_top::after {
+    top: 0; right: 0;
+    border-width: 3px 3px 0 0;
+    border-radius: 0 3px 0 0;
+}
+
+.o_barcode_reticle_bottom::before {
+    bottom: 0; left: 0;
+    border-width: 0 0 3px 3px;
+    border-radius: 0 0 0 3px;
+}
+
+.o_barcode_reticle_bottom::after {
+    bottom: 0; right: 0;
+    border-width: 0 3px 3px 0;
+    border-radius: 0 0 3px 0;
+}
+
+.o_barcode_hint {
+    color: #aeaeb2;
+    font-size: 0.8rem;
+    margin: 0;
+    text-align: center;
+}
+
+.o_barcode_error {
+    width: 100%;
+    margin-top: 2px;
+}

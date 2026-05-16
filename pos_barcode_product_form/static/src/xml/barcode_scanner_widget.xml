@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- addons/pos_barcode_product_form/static/src/xml/barcode_scanner_widget.xml -->
+<templates xml:space="preserve">
+    <t t-name="pos_barcode_product_form.BarcodeScannerWidget">
+
+        <div class="o_field_widget o_field_char d-flex align-items-center gap-1">
+
+            <input
+                type="text"
+                class="o_input flex-grow-1"
+                t-att-value="props.record.data[props.name] || ''"
+                t-on-change="onInputChange"
+                t-att-readonly="props.readonly"
+                t-att-disabled="props.readonly"
+            />
+
+            <button
+                type="button"
+                class="o_barcode_scan_btn btn btn-sm btn-secondary"
+                t-on-click="onClickScan"
+                t-att-disabled="props.readonly"
+                aria-label="Scan barcode with camera"
+                title="Scan barcode with camera"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                     fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2
+                             0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0
+                             9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1
+                             3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9
+                             2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+                </svg>
+            </button>
+
+            <input
+                type="file"
+                accept="image/*"
+                capture="environment"
+                class="d-none"
+                t-ref="fileInput"
+                t-on-change="onFileCapture"
+            />
+
+            <div t-if="scanState.active" class="o_barcode_overlay">
+                <div class="o_barcode_modal">
+
+                    <div class="o_barcode_modal_header">
+                        <span class="o_barcode_modal_title">Point camera at barcode</span>
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-light"
+                            t-on-click="onClickClose"
+                            aria-label="Close scanner"
+                        >✕</button>
+                    </div>
+
+                    <div class="o_barcode_video_wrapper">
+                        <video
+                            class="o_barcode_video"
+                            t-ref="scannerVideo"
+                            autoplay="true"
+                            muted="true"
+                            playsinline="true"
+                        />
+                        <div class="o_barcode_reticle" aria-hidden="true">
+                            <div class="o_barcode_reticle_top"/>
+                            <div class="o_barcode_reticle_bottom"/>
+                        </div>
+                    </div>
+
+                    <p class="o_barcode_hint">Hold steady — scanning automatically</p>
+                </div>
+            </div>
+
+            <div t-if="scanState.error" class="o_barcode_error small text-danger">
+                <t t-esc="scanState.error"/>
+            </div>
+
+        </div>
+    </t>
+</templates>
