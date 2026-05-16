@@ -44,6 +44,7 @@ services:
     volumes:
       - odoo-data:/var/lib/odoo
       - ./odoo/odoo.conf:/etc/odoo/odoo.conf:ro
+      - ./addons:/mnt/extra-addons:ro
     networks:
       - odoo-net
     ports:
