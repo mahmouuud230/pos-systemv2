@@ -1,21 +1,18 @@
 /** @odoo-module **/
-// addons/pos_barcode_product_form/static/src/js/barcode_scanner_widget.js
 
 import { registry } from "@web/core/registry";
-import { CharField } from "@web/views/fields/char/char_field";
-import { useRef, useState, onWillUnmount } from "@odoo/owl";
+import { Component, useRef, useState, onWillUnmount } from "@odoo/owl";
 import { _t } from "@web/core/l10n/translation";
 
 function getZXing() {
     return window.ZXingBrowser;
 }
 
-export class BarcodeScannerWidget extends CharField {
+// 1. Inherit from the native Owl Component instead of CharField
+export class BarcodeScannerWidget extends Component {
     static template = "pos_barcode_product_form.BarcodeScannerWidget";
 
     setup() {
-        super.setup();
-
         if (!window.ZXingBrowser) {
             console.error(
                 '[pos_barcode_product_form] ZXing library not found. ' +
@@ -47,7 +44,7 @@ export class BarcodeScannerWidget extends CharField {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             await this._startLiveScanner();
         } else {
-            this.fileInputRef.el && this.fileInputRef.el.click();
+            if (this.fileInputRef.el) this.fileInputRef.el.click();
         }
     }
 
@@ -98,7 +95,7 @@ export class BarcodeScannerWidget extends CharField {
                     "Camera access denied. Allow camera permission in your browser settings and try again."
                 );
             } else {
-                this.fileInputRef.el && this.fileInputRef.el.click();
+                if (this.fileInputRef.el) this.fileInputRef.el.click();
             }
             return;
         }
@@ -165,4 +162,10 @@ export class BarcodeScannerWidget extends CharField {
     }
 }
 
-registry.category("fields").add("barcode_scanner", BarcodeScannerWidget, { force: true });
+// 2. Explicitly export the modern fields object configuration mapping structure
+export const barcodeScannerField = {
+    component: BarcodeScannerWidget,
+    supportedTypes: ["char"],
+};
+
+registry.category("fields").add("barcode_scanner", barcodeScannerField);
